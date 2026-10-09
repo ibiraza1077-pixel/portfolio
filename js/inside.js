@@ -101,7 +101,7 @@ function buildBTree(count, sx = 1) {
   }
   const labels = {
     root: new THREE.Vector3((root.x + root.w / 2) * sx + 0.25, root.y, root.z),
-    internal: new THREE.Vector3((internals[2].x + 1.2) * sx + 0.25, internals[2].y, 0),
+    internal: new THREE.Vector3((internals[0].x - 1.2) * sx - 0.25, internals[0].y + 0.75, 0),
     leaves: new THREE.Vector3(leaves[4].x * sx, leaves[4].y - 0.75, leaves[4].z),
   };
   return { positions: out, labels };

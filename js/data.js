@@ -10,8 +10,8 @@ export const profile = {
   pitch: 'I build systems from the bytes up.',
   email: 'ibiraza1077@gmail.com',
   github: 'https://github.com/ibiraza1077-pixel',
-  // TODO(ibrahim): add your LinkedIn URL and a hosted CV, then remove these placeholders.
-  linkedin: '',
+  linkedin: 'https://www.linkedin.com/in/ibrahimraza-dev/',
+  // TODO(ibrahim): add a hosted CV link (e.g. a PDF in this repo) and the button appears.
   cv: '',
 };
 

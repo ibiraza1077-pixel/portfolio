@@ -310,7 +310,7 @@ function setupScroll(world, term) {
   const fit = (width, frac) => width / frac / 2 / Math.tan(THREE.MathUtils.degToRad(fov / 2)) / (innerWidth / innerHeight);
   const camName = () => ({ pos: new THREE.Vector3(0, 0, Math.max(15, fit(mobile ? 10 : 18.5, 1))), look: new THREE.Vector3(0, 0, 0) });
   const camTree = (t) => {
-    const d = mobile ? fit(11, 0.95) : fit(21, 0.56);
+    const d = mobile ? fit(11, 0.95) : fit(24, 0.56);
     const x = mobile ? 0 : -d * Math.tan(THREE.MathUtils.degToRad(fov / 2)) * (innerWidth / innerHeight) * 0.4;
     const ly = mobile ? 1 - d * Math.tan(THREE.MathUtils.degToRad(fov / 2)) * 0.5 : 0.6;
     return { pos: new THREE.Vector3(x + Math.sin(t * 0.25) * 1.2, ly + 0.4, d), look: new THREE.Vector3(x, ly, 0) };
