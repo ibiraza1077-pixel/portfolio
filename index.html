@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Ibrahim Raza</title>
+  <meta name="description" content="Ibrahim Raza, software engineer. Final-year CS student who built a SQL database from scratch in Go. Open to graduate roles in 2027." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&family=VT323&family=Caveat:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+</head>
+<body class="is-booting">
+  <canvas id="gl" aria-hidden="true"></canvas>
+
+  <!-- Boot / POST screen -->
+  <div class="boot" id="boot">
+    <pre class="boot__log" id="bootLog" aria-live="polite"></pre>
+    <div class="boot__start" id="bootStart">
+      <button type="button" class="boot__btn" data-start="sound"><kbd>ENTER</kbd> Power on with sound</button>
+      <button type="button" class="boot__btn boot__btn--quiet" data-start="mute"><kbd>ESC</kbd> Power on silently</button>
+    </div>
+  </div>
+
+  <!-- Chrome -->
+  <header class="bar">
+    <a class="bar__logo" href="#hero" data-nav>
+      <span class="bar__mark">IR</span><span class="bar__who">Ibrahim Raza</span>
+    </a>
+    <nav class="bar__nav" aria-label="Sections">
+      <a href="#hero" data-nav>Terminal</a>
+      <a href="#oakdb" data-nav>OakDB</a>
+      <a href="#work" data-nav>Work</a>
+      <a href="#contact" data-nav>Contact</a>
+    </nav>
+    <div class="bar__right">
+      <button type="button" class="bar__sound" id="soundBtn" aria-pressed="false"><span class="bars"><i></i><i></i><i></i></span><span id="soundTxt">Sound off</span></button>
+      <a class="bar__hire" href="#contact" data-nav>Hire me</a>
+    </div>
+  </header>
+
+  <div class="hud" aria-hidden="true">
+    <span id="hudFps">-- FPS</span><span id="hudPts">-- particles</span><span>WebGL2</span><span id="hudAddr">0x0000</span>
+  </div>
+  <div class="labels" id="labels" aria-hidden="true"></div>
+  <div class="toast" id="toast" role="status"></div>
+
+  <textarea id="termInput" class="term-input" aria-label="Terminal input" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"></textarea>
+
+  <main>
+    <!-- 1. The machine -->
+    <section class="hero" id="hero">
+      <div class="hero__copy">
+        <p class="kicker"><span class="dot"></span>Software engineer · Graduate 2027</p>
+        <h1 class="hero__name" id="heroName">Ibrahim<br />Raza</h1>
+        <p class="hero__pitch">I build systems from the bytes up. Most recently, a SQL database. From scratch. In Go.</p>
+        <div class="hero__try">
+          <span class="hero__tryLabel">Try the terminal</span>
+          <button type="button" class="chip" data-cmd="neofetch">neofetch</button>
+          <button type="button" class="chip" data-cmd="SELECT name, lang FROM projects WHERE lang = 'Go';">SELECT … WHERE lang = 'Go'</button>
+          <button type="button" class="chip" data-cmd="hire">hire</button>
+          <button type="button" class="chip" data-cmd="help">help</button>
+        </div>
+      </div>
+      <p class="hero__hint" id="heroHint"><span class="kbdish">⌨</span> Type anywhere to use the computer · scroll to go inside</p>
+    </section>
+
+    <!-- 2. Through the glass -->
+    <section class="dive" id="dive">
+      <div class="sticky dive__sticky">
+        <p class="dive__cmd" id="diveCmd"><span>$</span> cd /dev/ibrahim</p>
+      </div>
+    </section>
+
+    <!-- 3. Name in particles -->
+    <section class="name" id="name">
+      <div class="sticky name__sticky">
+        <div class="name__foot">
+          <p>Final-year BSc Computer Science</p>
+          <p>Go · TypeScript · Python · SQL</p>
+          <p>Backend · Full-stack · AI/ML · Security</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. OakDB -->
+    <section class="oak" id="oakdb">
+      <div class="sticky oak__sticky">
+        <div class="panel oak__panel">
+          <p class="kicker">Flagship · Go · 2026</p>
+          <h2 class="h2">I built a database<br />from scratch.</h2>
+          <p class="lede">OakDB stores data in an on-disk B+tree, survives crashes through a write-ahead log, runs transactions with snapshot isolation and speaks the PostgreSQL wire protocol, so <code>psql</code> connects to it like it's Postgres. No database libraries. Every layer, from bytes on disk to the network protocol.</p>
+          <dl class="facts" id="oakFacts"></dl>
+          <div class="links">
+            <a class="btn" href="https://github.com/ibiraza1077-pixel/oakdb" target="_blank" rel="noopener">Read the code ↗</a>
+            <a class="btn btn--ghost" href="https://github.com/ibiraza1077-pixel/oakdb#how-its-tested" target="_blank" rel="noopener">How it's tested ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Work -->
+    <section class="work" id="work">
+      <div class="sticky work__sticky">
+        <div class="panel work__panel">
+          <p class="kicker">Selected work · <span id="workIdx">01</span> / <span id="workTotal">07</span></p>
+          <h2 class="work__title" id="workTitle">OakDB</h2>
+          <p class="work__meta" id="workMeta"></p>
+          <p class="lede" id="workSummary"></p>
+          <p class="work__proof" id="workProof"></p>
+          <div class="links" id="workLinks"></div>
+        </div>
+        <ol class="work__list" id="workList"></ol>
+      </div>
+    </section>
+
+    <!-- 6. Contact -->
+    <section class="contact" id="contact">
+      <div class="sticky contact__sticky">
+        <div class="contact__inner">
+          <p class="kicker">Graduating 2027 · open to graduate software engineering roles</p>
+          <h2 class="contact__title">Let's build<br />something real.</h2>
+          <button type="button" class="contact__email" id="emailBtn"><span id="emailTxt">ibiraza1077@gmail.com</span><small id="emailHint">Click to copy</small></button>
+          <div class="links links--center" id="contactLinks">
+            <a class="btn btn--ghost" href="https://github.com/ibiraza1077-pixel" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+          <p class="contact__foot">Built with Three.js, GLSL, GSAP and a toy SQL engine. <span id="partCount">22,000</span> particles, no templates.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <noscript><p class="noscript">Ibrahim Raza, software engineer, graduating 2027. Email <a href="mailto:ibiraza1077@gmail.com">ibiraza1077@gmail.com</a> · <a href="https://github.com/ibiraza1077-pixel">GitHub</a>. Turn on JavaScript for the interactive version.</p></noscript>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
