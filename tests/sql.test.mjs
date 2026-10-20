@@ -1,14 +1,16 @@
 // Run: ~/.local/node/bin/node tests/sql.test.mjs
 import assert from 'node:assert/strict';
 import { createDatabase, runSQL, looksLikeSQL, TABLE_NAMES } from '../js/sql.js';
-import { projects } from '../js/data.js';
+import { projects as liveProjects, skills } from '../js/data.js';
 
-// Expectations about NULL demos come from the data, so editing data.js doesn't break tests.
+// A fixture where OakDB and Viral Clipper have no demo, so the NULL tests always have
+// NULLs to work with, whatever the live data says.
+const projects = liveProjects.map((p) => ({ ...p, demo: p.id <= 2 ? '' : p.demo || 'https://example.com/' }));
 const noDemo = projects.filter((p) => !p.demo);
 const withDemo = projects.length - noDemo.length;
 const rows = (n) => (n === 1 ? '(1 row)' : `(${n} rows)`);
 
-const db = createDatabase();
+const db = createDatabase({ projects, skills });
 const run = (sql) => runSQL(db, sql);
 // Data rows of a successful SELECT as arrays of trimmed cell strings (skips header, rule and footer).
 const cells = (sql) => {

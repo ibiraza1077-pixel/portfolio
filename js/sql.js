@@ -12,7 +12,8 @@ class SqlError extends Error {
 
 // ---------------------------------------------------------------- database
 
-export function createDatabase() {
+// Builds the tables from data.js by default; tests pass their own fixture data.
+export function createDatabase({ projects: projectRows = projects, skills: skillRows = skills } = {}) {
   const col = (name, type) => ({ name, type });
   return {
     tables: {
@@ -20,12 +21,12 @@ export function createDatabase() {
         name: 'projects',
         cols: [col('id', 'integer'), col('name', 'text'), col('lang', 'text'), col('year', 'integer'),
           col('stack', 'text'), col('summary', 'text'), col('repo', 'text'), col('demo', 'text')],
-        rows: projects.map((p) => [p.id, p.name, p.lang, p.year, p.stack, p.summary, p.repo, p.demo === '' ? null : p.demo]),
+        rows: projectRows.map((p) => [p.id, p.name, p.lang, p.year, p.stack, p.summary, p.repo, p.demo === '' ? null : p.demo]),
       },
       skills: {
         name: 'skills',
         cols: [col('name', 'text'), col('category', 'text')],
-        rows: skills.map((s) => [s.name, s.category]),
+        rows: skillRows.map((s) => [s.name, s.category]),
       },
     },
   };
