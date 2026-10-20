@@ -1,6 +1,12 @@
 // Run: ~/.local/node/bin/node tests/sql.test.mjs
 import assert from 'node:assert/strict';
 import { createDatabase, runSQL, looksLikeSQL, TABLE_NAMES } from '../js/sql.js';
+import { projects } from '../js/data.js';
+
+// Expectations about NULL demos come from the data, so editing data.js doesn't break tests.
+const noDemo = projects.filter((p) => !p.demo);
+const withDemo = projects.length - noDemo.length;
+const rows = (n) => (n === 1 ? '(1 row)' : `(${n} rows)`);
 
 const db = createDatabase();
 const run = (sql) => runSQL(db, sql);
@@ -84,14 +90,15 @@ test('BETWEEN', () => {
 });
 
 test('IS NULL / IS NOT NULL (demo) and NULL semantics', () => {
-  assert.deepEqual(col('SELECT name FROM projects WHERE demo IS NULL'), ['OakDB', 'Viral Clipper']);
-  assert.equal(footer('SELECT name FROM projects WHERE demo IS NOT NULL'), '(5 rows)');
+  assert.ok(noDemo.length > 0, 'these NULL tests need at least one project without a demo');
+  assert.deepEqual(col('SELECT name FROM projects WHERE demo IS NULL'), noDemo.map((p) => p.name));
+  assert.equal(footer('SELECT name FROM projects WHERE demo IS NOT NULL'), rows(withDemo));
   assert.equal(footer("SELECT name FROM projects WHERE demo = ''"), '(0 rows)');
   assert.equal(footer('SELECT name FROM projects WHERE demo = NULL'), '(0 rows)');
-  assert.equal(footer("SELECT name FROM projects WHERE demo != 'x'"), '(5 rows)'); // NULL rows excluded
-  assert.equal(footer("SELECT name FROM projects WHERE NOT demo LIKE 'x%'"), '(5 rows)');
-  const lines = run('SELECT name, demo FROM projects WHERE id = 1').lines;
-  assert.equal(lines[2], ' OakDB | '.trimEnd());
+  assert.equal(footer("SELECT name FROM projects WHERE demo != 'x'"), rows(withDemo)); // NULL rows excluded
+  assert.equal(footer("SELECT name FROM projects WHERE NOT demo LIKE 'x%'"), rows(withDemo));
+  const lines = run(`SELECT name, demo FROM projects WHERE id = ${noDemo[0].id}`).lines;
+  assert.equal(lines[2], ` ${noDemo[0].name} |`);
 });
 
 test('AND / OR / NOT precedence', () => {
@@ -113,7 +120,7 @@ test('ORDER BY asc / desc / multi-key / position / alias', () => {
   assert.deepEqual(col('SELECT name AS n FROM projects ORDER BY n LIMIT 1'), ['AI Interview Coach']);
   assert.deepEqual(col('SELECT id FROM projects ORDER BY name DESC LIMIT 1'), ['2']); // Viral Clipper
   // NULLs sort last ascending, first descending
-  assert.deepEqual(col('SELECT demo FROM projects ORDER BY demo LIMIT 6').at(-1), '');
+  assert.deepEqual(col(`SELECT demo FROM projects ORDER BY demo LIMIT ${withDemo + 1}`).at(-1), '');
   assert.deepEqual(col('SELECT demo FROM projects ORDER BY demo DESC LIMIT 1'), ['']);
   err('SELECT id FROM projects ORDER BY 2', 'ERROR:  ORDER BY position 2 is not in select list');
 });
@@ -136,7 +143,7 @@ test('DISTINCT', () => {
 
 test('aggregates: COUNT, MIN, MAX', () => {
   assert.deepEqual(cells('SELECT COUNT(*) FROM projects'), [['7']]);
-  assert.deepEqual(cells('SELECT COUNT(demo) FROM projects'), [['5']]);
+  assert.deepEqual(cells('SELECT COUNT(demo) FROM projects'), [[String(withDemo)]]);
   assert.deepEqual(cells("SELECT COUNT(*) FROM projects WHERE lang = 'Rust'"), [['0']]);
   assert.deepEqual(cells('SELECT MIN(id), MAX(id) FROM projects'), [['1', '7']]);
   assert.deepEqual(cells('SELECT MAX(name) FROM projects'), [['Viral Clipper']]);
