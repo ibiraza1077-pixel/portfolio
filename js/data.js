@@ -24,9 +24,9 @@ export const projects = [
     year: 2026,
     stack: 'Go, B+trees, WAL, PostgreSQL protocol',
     summary: 'A SQL database built from scratch: B+tree storage, write-ahead log with crash recovery, snapshot isolation, a query planner with index and hash joins, and the PostgreSQL wire protocol.',
-    proof: 'Tested against SQLite with 30,000 random queries and repeated SIGKILL crash tests.',
+    proof: 'Tested against SQLite with 30,000 random queries and repeated SIGKILL crash tests. The live demo is the real engine compiled to WebAssembly.',
     repo: 'https://github.com/ibiraza1077-pixel/oakdb',
-    demo: '',
+    demo: 'https://ibiraza1077-pixel.github.io/oakdb/demo/',
   },
   {
     id: 2,
