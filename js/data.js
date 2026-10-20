@@ -36,9 +36,9 @@ export const projects = [
     year: 2026,
     stack: 'Python, FastAPI, MLX Whisper, Claude API, OpenCV, ffmpeg',
     summary: 'A local ML pipeline that turns long videos into vertical clips: Whisper transcription, LLM clip selection, face-tracked reframing and animated captions.',
-    proof: 'Also generates AI-narrated story videos, all on Apple Silicon.',
+    proof: 'Also writes, draws, voices and edits narrated story videos on Apple Silicon. The live studio walks through a real run.',
     repo: 'https://github.com/ibiraza1077-pixel/viral-clipper',
-    demo: '',
+    demo: 'https://ibiraza1077-pixel.github.io/viral-clipper/',
   },
   {
     id: 3,
