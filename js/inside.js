@@ -109,7 +109,7 @@ function buildBTree(count, sx = 1) {
 
 export function projectLayout(mobile) {
   return Array.from({ length: PROJECT_COUNT }, (_, i) => ({
-    center: new THREE.Vector3((i - 3) * (mobile ? 4.2 : 5.4), Math.sin(i * 1.3) * 1.1, Math.cos(i * 0.9) * 1.4),
+    center: new THREE.Vector3((i - (PROJECT_COUNT - 1) / 2) * (mobile ? 4.2 : 5.4), Math.sin(i * 1.3) * 1.1, Math.cos(i * 0.9) * 1.4),
     radius: i === 0 ? 1.55 : 0.85 + ((i * 37) % 5) * 0.08,
   }));
 }

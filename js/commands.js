@@ -64,6 +64,8 @@ export function installCommands(term, hooks = {}) {
     about() {
       term.print(`${profile.name}. ${profile.role}.`, 'bright');
       term.print(profile.status);
+      term.print('Before uni: a 6-month software developer internship (React, Node.js,', 'dim');
+      term.print('PostgreSQL), and an invitation to return as a graduate.', 'dim');
       term.print('');
       term.print('I like the parts of software most people treat as a black box.');
       term.print('So I built one: OakDB, a SQL database written from scratch in Go,');

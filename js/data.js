@@ -5,7 +5,7 @@ export const profile = {
   name: 'Ibrahim Raza',
   handle: 'ibrahim',
   role: 'Software engineer',
-  status: 'Final-year BSc Computer Science · graduating 2027',
+  status: 'Final-year BSc Computer Science · First in Year 2 · graduating 2027',
   seeking: 'Graduate software engineering roles: backend, full-stack, AI/ML or security',
   pitch: 'I build systems from the bytes up.',
   email: 'ibiraza1077@gmail.com',
@@ -30,6 +30,18 @@ export const projects = [
   },
   {
     id: 2,
+    slug: 'agent-desk',
+    name: 'Agent Desk',
+    lang: 'Python',
+    year: 2026,
+    stack: 'Python, FastAPI, SQLite, Claude / Ollama, Alpaca paper API',
+    summary: 'A multi-agent AI paper-trading desk: Analyst, Charts, Skeptic and Chief agents debate each trade, and a live dashboard shows their chat, decisions, positions and an equity curve against SPY.',
+    proof: 'A deterministic RiskGuard in pure code is the only path to an order and clamps every number the LLMs return. Paper trading only, with a kill switch and a daily LLM budget cap.',
+    repo: 'https://github.com/ibiraza1077-pixel/agent-desk',
+    demo: '',
+  },
+  {
+    id: 3,
     slug: 'viral-clipper',
     name: 'Viral Clipper',
     lang: 'Python',
@@ -41,7 +53,7 @@ export const projects = [
     demo: 'https://ibiraza1077-pixel.github.io/viral-clipper/',
   },
   {
-    id: 3,
+    id: 4,
     slug: 'codepair',
     name: 'CodePair',
     lang: 'TypeScript',
@@ -53,7 +65,7 @@ export const projects = [
     demo: 'https://codepair-nine.vercel.app/',
   },
   {
-    id: 4,
+    id: 5,
     slug: 'interview-coach',
     name: 'AI Interview Coach',
     lang: 'TypeScript',
@@ -65,7 +77,7 @@ export const projects = [
     demo: 'https://cf-ai-interview-coach.ai-interview-coach.workers.dev/',
   },
   {
-    id: 5,
+    id: 6,
     slug: 'job-tracker',
     name: 'Job Tracker',
     lang: 'JavaScript',
@@ -77,7 +89,7 @@ export const projects = [
     demo: 'https://job-tracker-liart-theta.vercel.app/',
   },
   {
-    id: 6,
+    id: 7,
     slug: 'unilondon',
     name: 'UniLondon',
     lang: 'JavaScript',
@@ -89,7 +101,7 @@ export const projects = [
     demo: 'https://ibiraza1077-pixel.github.io/',
   },
   {
-    id: 7,
+    id: 8,
     slug: 'ai-security',
     name: 'AI Security Assessment',
     lang: 'Python',
